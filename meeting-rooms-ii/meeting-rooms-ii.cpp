@@ -1,25 +1,32 @@
 class Solution {
 public:
-    static bool cmp(vector<int>& A, vector<int>& B){
-        return A[0]<B[0];
+    bool static sortStarting(vector<int> a, vector<int> b){
+        return a[0]<b[0];
     }
     
+    
     int minMeetingRooms(vector<vector<int>>& intervals) {
-        sort(intervals.begin(),intervals.end(),cmp);
-        priority_queue<int, vector<int>, greater<int>> q;
-        int maxRooms=0;
-        q.push(0);
-
+        sort(intervals.begin(),intervals.end(),sortStarting);
+        priority_queue<int, vector<int>,greater<int>> pq;
+        int maxm=-1;
+        vector<int> size;
         for(int i=0;i!=intervals.size();i++){
-            if(intervals[i][0]>=q.top()){
-                q.pop();
-                q.push(intervals[i][1]);
+            while(pq.size()>0 && intervals[i][0]>=pq.top()){
+                pq.pop();
             }
-            else{
-                q.push(intervals[i][1]);
-            }
-            cout<<q.top()<<"\n";
+            pq.push(intervals[i][1]);
+            size.push_back(pq.size());
+            
+            
+            
         }
-        return q.size();
+        
+        for(int i=0;i!=size.size();i++){
+            if(size[i]>maxm){
+                maxm=size[i];
+            }
+        }
+        return maxm;
+        
     }
 };
