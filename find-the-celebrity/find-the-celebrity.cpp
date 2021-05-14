@@ -18,16 +18,18 @@ public:
                         if(!knows(i,j) && knows(j,i)){
                             count++;
                         }
-                        else if(knows(i,j)){
+                        else if(knows(i,j) || !knows(j,i)){
                             track.erase(i);
                             break;
                         }
-                        if(count==n-1){
+                       
+                       
+                    }
+                    
+                }
+                 if(count==n-1){
                             return i;
                         }
-                    }
-                }
-                
                 
             }
             
