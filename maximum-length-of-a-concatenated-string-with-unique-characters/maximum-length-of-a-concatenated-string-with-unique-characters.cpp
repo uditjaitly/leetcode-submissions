@@ -1,35 +1,40 @@
 class Solution {
 public:
-    int max=0;
-    void dfs(int idx,vector<string>& arr,string str){
+    int max=-1;
+    
+    int maxLength(vector<string>& arr) {
+        findUnique(arr,0,"");
+        return max;
+    }
+    void findUnique(vector<string> arr,int idx, string str){
         if(isUnique(str)==false){
+            cout<<"rer";
             return;
         }
-        if(max<str.size()){
+        int temp= str.size();
+   
+         if(temp>max){
             max=str.size();
         }
         for(int i=idx;i!=arr.size();i++){
-            dfs(i,arr,arr[i]+str);
+            findUnique(arr, i+1, arr[i]+str);
         }
+      
         
         
-    }
-    bool isUnique(string str){
-        set<char> track;
-        for(int i=0;i!=str.size();i++){
-            if(track.find(str[i])==track.end()){
-                track.insert(str[i]);
-            }
-            else{
-                return false;
-               
-            }
-        }
-        return true;
+        
     }
     
-    int maxLength(vector<string>& arr) {
-        dfs(0,arr,"");
-        return max;
+    
+    
+    bool isUnique(string s){
+        set<char> track;
+        for(int i=0;i!=s.size();i++){
+            if(track.find(s[i])!=track.end()){
+                return false;
+            }
+            track.insert(s[i]);
+        }
+        return true;
     }
 };
