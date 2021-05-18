@@ -11,22 +11,18 @@ public:
         int maxm=-1;
         vector<int> size;
         for(int i=0;i!=intervals.size();i++){
-            while(pq.size()>0 && intervals[i][0]>=pq.top()){
+            if(pq.size()>0 && intervals[i][0]>=pq.top()){
                 pq.pop();
             }
             pq.push(intervals[i][1]);
             size.push_back(pq.size());
-            
+          
             
             
         }
         
-        for(int i=0;i!=size.size();i++){
-            if(size[i]>maxm){
-                maxm=size[i];
-            }
-        }
-        return maxm;
+     
+        return pq.size();
         
     }
 };
