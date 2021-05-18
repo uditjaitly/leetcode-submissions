@@ -12,26 +12,29 @@
 class Solution {
 public:
     int count=0;
-    void dfs(TreeNode* node,vector<int> track){
+    void dfs(TreeNode* node,int max){
         if(node==NULL){
             return;
         }
-        track.push_back(node->val);
-        if(*max_element(track.begin(),track.end())<=node->val){
+        if(node->val>max){
+            max=node->val;
+        }
+        dfs(node->left,max);
+        dfs(node->right,max);
+        
+        if(node->val>=max){
             count++;
         }
-        dfs(node->left,track);
-        dfs(node->right,track);
+        
         
         
         
     }
     
     
+    
     int goodNodes(TreeNode* root) {
-        vector<int> track;
-        
-        dfs(root,track);
+        dfs(root,INT_MIN);
         return count;
     }
 };
