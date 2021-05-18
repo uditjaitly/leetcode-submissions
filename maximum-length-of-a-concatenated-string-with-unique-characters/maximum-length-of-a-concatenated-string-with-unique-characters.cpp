@@ -24,7 +24,7 @@ public:
     }
     
     bool isUnique(string str){
-        set<char> track;
+        unordered_set<char> track;
         for(int i=0;i!=str.size();i++){
             if(track.find(str[i])!=track.end()){
                 return false;
