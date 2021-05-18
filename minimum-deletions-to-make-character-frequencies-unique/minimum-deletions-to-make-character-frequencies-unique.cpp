@@ -1,42 +1,52 @@
 class Solution {
 public:
     int minDeletions(string s) {
-        sort(s.begin(),s.end());
-        vector<int> count;
-        int temp=1;
-        set<int> track;
-        int res=0;
-        for(int i=0;i!=s.size()-1;i++){
-            if(s[i+1]==s[i]){
-                temp++;
+        map<char,int> track;
+        priority_queue<int> pq;
+        set<int> setTrack;
+        int count=0;
+        for(int i=0;i!=s.size();i++){
+            if(track.find(s[i])==track.end()){
+                track.insert(pair<char,int>(s[i],1));
             }
             else{
-                count.push_back(temp);
-                temp=1;
+                track[s[i]]++;
             }
-            if(i==s.size()-2){
-                count.push_back(temp);
-            }
+        }    
+        for(auto itr=track.begin();itr!=track.end();itr++){
+            pq.push(itr->second);
         }
-        sort(count.begin(),count.end(),greater<int>());
-        for(int i=0;i!=count.size();i++){
-            cout<<count[i]<<" ";
-            if(track.find(count[i])==track.end()){
-                track.insert(count[i]);
+        
+        while(pq.size()>0){
+            if(setTrack.find(pq.top())==setTrack.end()){
+                cout<<pq.top()<<" ";
+                setTrack.insert(pq.top());
+                pq.pop();
             }
-            else{
-                
-                
-                while(track.find(count[i])!=track.end() && count[i]>0){
-                    count[i]--;
-                    res++;
+            else if(setTrack.find(pq.top())!=setTrack.end() && pq.top()!=1){
+                cout<<pq.top()<<" ";
+                int i=0;
+                while(setTrack.find(pq.top()-i)!=setTrack.end() && pq.top()-i!=0){
+                    cout<<"here";
+                    count++;
+                    i++;
                 }
-              
+                setTrack.insert(pq.top()-i);
+                pq.pop();
                 
-                
-                track.insert(count[i]);
+            }
+            else if(pq.top()==1){
+                pq.pop();
+                count++;
             }
         }
-        return res;
+        
+        
+        
+        
+        
+        
+        
+        return count;
     }
 };
