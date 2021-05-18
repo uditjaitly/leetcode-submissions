@@ -1,39 +1,35 @@
 class Solution {
 public:
     int max=-1;
-    
     int maxLength(vector<string>& arr) {
-        findUnique(arr,0,"");
+        possibleUnique(arr,"",0);
         return max;
     }
-    void findUnique(vector<string> arr,int idx, string str){
+    
+    void possibleUnique(vector<string>& arr, string str, int idx){
         if(isUnique(str)==false){
-            cout<<"rer";
             return;
         }
-        int temp= str.size();
-   
-         if(temp>max){
+        int temp=str.size();
+        if(temp>max){
             max=str.size();
         }
+        
         for(int i=idx;i!=arr.size();i++){
-            findUnique(arr, i+1, arr[i]+str);
+            possibleUnique(arr,str+arr[i],i+1);
         }
-      
         
         
         
     }
     
-    
-    
-    bool isUnique(string s){
+    bool isUnique(string str){
         set<char> track;
-        for(int i=0;i!=s.size();i++){
-            if(track.find(s[i])!=track.end()){
+        for(int i=0;i!=str.size();i++){
+            if(track.find(str[i])!=track.end()){
                 return false;
             }
-            track.insert(s[i]);
+            track.insert(str[i]);
         }
         return true;
     }
