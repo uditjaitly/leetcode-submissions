@@ -1,22 +1,25 @@
 class Solution {
 public:
     vector<vector<string>> groupAnagrams(vector<string>& strs) {
-        vector<string> copy=strs;
+        vector<string> copyStrs=strs;
         vector<vector<string>> res;
-        map<string,vector<int>> store;
+        map<string,vector<string>> hm;
         for(int i=0;i!=strs.size();i++){
-            sort(strs[i].begin(),strs[i].end());
-            cout<<strs[i]<<" ";
-            store[strs[i]].push_back(i);
-            
-        }
-        for(auto i=store.begin();i!=store.end();i++){
-            vector<string> temp;
-            for(int j=i->second.size()-1;j>=0;j--){
-                temp.push_back(copy[i->second[j]]);
+            string temp=strs[i];
+            sort(strs[i].begin(), strs[i].end());
+            if(hm.find(strs[i])==hm.end()){
+                hm[strs[i]]={temp};
             }
-            res.push_back(temp);
+            else{
+                hm[strs[i]].push_back(temp);
+            }
         }
+        
+        for(auto itr=hm.begin();itr!=hm.end();itr++){
+            res.push_back(itr->second);
+        }
+        
+        
         return res;
     }
 };
