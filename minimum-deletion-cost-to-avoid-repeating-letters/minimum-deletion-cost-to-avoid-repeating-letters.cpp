@@ -1,7 +1,7 @@
 class Solution {
 public:
     int minCost(string s, vector<int>& cost) {
-        int res;
+        int res=0;
         for(int i=0;i!=s.size()-1;i++){
             if(s[i]==s[i+1]){
                 if(cost[i]>cost[i+1]){
@@ -12,6 +12,8 @@ public:
                     res+=cost[i];
                 }
             }
+            
+            
         }
         return res;
     }
