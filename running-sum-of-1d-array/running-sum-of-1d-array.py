@@ -1,14 +1,14 @@
 class Solution(object):
     def runningSum(self, nums):
         i=0
-        r=0
-        while i<len(nums):
-            r=nums[i]+r
-            nums[i]=r
-            
+        curr=0
+        res=[]
+        while i < len(nums):
+            curr=nums[i] + curr
+            res.append(curr)
             i=i+1
-            
-        return nums
+        
+        return res
         """
         :type nums: List[int]
         :rtype: List[int]
