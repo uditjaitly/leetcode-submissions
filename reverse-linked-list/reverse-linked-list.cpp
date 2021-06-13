@@ -10,28 +10,28 @@
  */
 class Solution {
 public:
-    ListNode* head1;
-    void recursive(ListNode* node){
-        if(node==NULL){
+    ListNode* temp;
+    void dfs(ListNode* node){
+        if(node==NULL ){
             return;
         }
-        recursive(node->next);
         if(node->next==NULL){
-            head1=node;
+            temp=node;
             return;
         }
+      
+        dfs(node->next);
+       
         node->next->next=node;
         node->next=NULL;
-        
         cout<<node->val<<" ";
+        
+        
     }
     
     
-    
     ListNode* reverseList(ListNode* head) {
-        ListNode* itr=head;
-        head1=itr;
-        recursive(itr);
-        return head1;
+        dfs(head);
+        return temp;
     }
 };
